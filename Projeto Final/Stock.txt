@@ -1,0 +1,4 @@
+Loja	Produtos
+Continente	Carne: 50, Peixe: 40, Leite: 30, Bolachas: 100, Iogurte: 30
+Pingo Doce	Carne: 60, Peixe: 30, Leite: 10, Azeite: 10, Água: 30
+Mini Preço	Carne: 30, Peixe: 40, Leite: 60, Bolachas: 100, Iogurte: 30

@@ -1,0 +1,2 @@
+hashfunctions bloomfilter
+hashfunctions minHash

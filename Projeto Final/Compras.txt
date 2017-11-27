@@ -1,0 +1,5 @@
+NIF	Compra	Loja
+156299233	Carne: 1, Leite: 1	Continente
+253	Leite: 2, Batatas: 4	Pingo Doce
+231	Carne: 2, Bolachas: 5	Continente
+412	Batatas: 6	Mini Preço
