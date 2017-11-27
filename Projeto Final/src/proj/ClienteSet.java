@@ -1,3 +1,10 @@
+/*
+ * Universidade de Aveiro, 2017
+ * Métodos Probabílisticos para Engenharia Informática
+ * Mestrado Integrado em Engenharia de Computadores e Telemática
+ * Marco Silva(84770) e Raquel Rainho(84891)
+ */
+
 package proj;
 
 import java.util.ArrayList;
@@ -38,6 +45,10 @@ public class ClienteSet {
 		clienteSet.add(c);
 		
 		return true;
+	}
+	
+	public String getCliente(int index){
+		return clienteSet.get(index).toString();
 	}
 	
 	public void printClientes() {

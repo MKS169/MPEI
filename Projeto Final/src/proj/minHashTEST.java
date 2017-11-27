@@ -7,6 +7,11 @@
 
 package proj;
 
-public class Supermercado {
+public class minHashTEST {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
