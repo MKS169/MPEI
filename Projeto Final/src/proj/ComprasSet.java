@@ -29,6 +29,10 @@ public class ComprasSet {
 		}
 	}
 	
+	public Compras getCompras(int index){
+		return comprasSet.get(index);
+	}
+	
 	public LinkedList<Compras> comprasDoCliente(int nif){
 		LinkedList<Compras> aux = new LinkedList<>();
 		for (Compras elem: comprasSet)

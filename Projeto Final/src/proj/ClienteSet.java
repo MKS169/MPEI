@@ -23,10 +23,10 @@ public class ClienteSet {
 		clienteSet = new ArrayList<>();// VER MELHOR FORMA DE FAZER ISTO!!
 		comprasFeitasPeloCliente = new HashMap<>();
 		comprasSet = new ComprasSet();
-		addClienteFromFile();
+		//addClienteFromFile();
 	}
 	
-	private void addClienteFromFile() {
+	public void addClienteFromFile() {
 		List<String> aux = new ArrayList<>();
 		FileRdWr.readFile("DadosCliente.txt", aux);
 		Cliente c;
@@ -35,6 +35,10 @@ public class ClienteSet {
 			clienteSet.add(c);
 			comprasFeitasPeloCliente.put(c.getNif(), comprasSet.comprasDoCliente(c.getNif()));
 		}
+	}
+	
+	public int size(){
+		return clienteSet.size();
 	}
 	
 	// Depois de já ter sido lido o ficheiro, podemos querer adicionar novos clientes
@@ -47,8 +51,8 @@ public class ClienteSet {
 		return true;
 	}
 	
-	public String getCliente(int index){
-		return clienteSet.get(index).toString();
+	public Cliente getCliente(int index){
+		return clienteSet.get(index);
 	}
 	
 	public void printClientes() {

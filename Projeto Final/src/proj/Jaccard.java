@@ -9,31 +9,22 @@ package proj;
 
 public class Jaccard {
 	
-	private MinHash minHashes;
 	private double[][] distance;
 	private int[][] minHash;
 	
-	public Jaccard(String[][] sets){		// sets serão produtos
-		this.minHashes = new MinHash(sets); 
+	public Jaccard(MinHash minHashes){
 		this.minHash = minHashes.getMinHash();
 		this.distance = new double[minHash.length][minHash.length];
 		
-		int inter = 0, uni = 0; 
 		double x = 0;
+		int inter = 0, union = 0;
 		
 		for(int i = 0; i < minHash.length-1; i++){
 			for(int j = i+1; j < minHash.length; j++){
-				
-				if(minHash[j] == minHash[i])		// interseção entre minHash[i] e minHash[j]
-					inter = sum(minHash[i],minHash[j]);
-				else
-					inter = 0;
-				
-				uni = minHash[j].length + minHash[i].length;	// uniao entre minHash[i] and minHash[j]		
-				
-				x = inter/uni;
-				
-				distance[i][j] = 1-x;
+				inter = sum(minHash[i],minHash[j]);
+				union = minHash[i].length + minHash[j].length;
+				x = 1-(inter/(union-inter));
+				distance[i][j] = x;
 			}
 		}
 	}

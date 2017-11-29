@@ -12,11 +12,13 @@ import java.util.Map;
 
 public class Compras {
 	private int nif;
+	private String compra;
 	private Map<String, Integer> detalhesDaCompra;
 			// produto - quantidade
 	
 	public Compras(int nif, String compra) {
 		this.nif = nif;
+		this.compra = compra;
 		detalhesDaCompra = new HashMap<>();
 		listaDaCompra(compra);		
 	}
@@ -24,8 +26,12 @@ public class Compras {
 	public int getNif() {
 		return nif;
 	}
+	
+	public String compra(){
+		return compra;
+	}
 
-	// exemplo: Carne: 1; Leite: 1
+	// exemplo: Carne: 1, Leite: 1
 	private void listaDaCompra(String compra) {
 		String[] aux = compra.split(", ");
 		for (String elem: aux)

@@ -6,34 +6,35 @@ public class DistanceFilter {
 	private double limite;
 	private String[][] similares;
 	
-	// este input deve ser clientes[], produtos[] e comprasporcliente[] ????????????	
-	
 	public DistanceFilter(int lenClientes, ClienteSet clientes, double[][] J, double threshold){
 		this.len = lenClientes;		// número de clientes
 		this.limite = threshold;	// limite de distançia
-		this.similares = new String[3][0];	// [0] -> cliente1; [1] -> cliente2; [2] -> distancia
+		this.similares = new String[3][100000];	// [0] -> cliente1; [1] -> cliente2; [2] -> distancia
 		
 		for(int i = 0; i < len; i++){
-			for(int j = 0; j < len; j++){
+			for(int j = 0; j < J[i].length; j++){
+				similares = extendArray(similares);
 				if(J[i][j] <= limite){
-					similares[0][i] = clientes.getCliente(i);
-					similares[1][i] = clientes.getCliente(j);
-					similares = addClientes(similares, countPairs, J[i][j]);
-					countPairs++;	// countPairs vai funcionar tanto para a posição no array como para contar as
-									// distancias a baixo do limite
+					similares[0][i] = clientes.getCliente(i).getNome();
+					similares[1][i] = clientes.getCliente(j).getNome();
+					similares[2][i] = "" + J[i][j];
+					countPairs++;
 				}
 			}
 		}
 	}
 	
-	public int NumbOfPairs(){
+	public String[][] similares(){
+		return similares;
+	}
+	public int NumOfPairs(){
 		return this.countPairs;
 	}
 	
-	private String[][] addClientes(String[][] similares,int k, double distJaccard){
-		String[][] hold = new String[3][k];
-		System.arraycopy(similares, 0, hold, 0, similares.length);
-		hold[2][similares.length] = String.valueOf(distJaccard);
-		return hold;
+	private String[][] extendArray(String[][] similares){
+		String[][] aux = new String[3][similares[0].length+1];
+		System.arraycopy(similares, 0, aux, 0, similares.length);
+		return aux;
 	}
+	
 }
