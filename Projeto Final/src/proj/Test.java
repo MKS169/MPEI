@@ -36,7 +36,7 @@ public class Test {
 
 		System.out.println("Nome\tDataNasc\tNIF");
 		for(int i =0; i<10; i++) {
-			c = new Cliente("Exemplo" + i, new Date("4/2/1998"), i);
+			c = new Cliente("Exemplo" + i, i);
 			System.out.println(c);
 		}
 		

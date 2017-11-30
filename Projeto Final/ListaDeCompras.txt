@@ -1,0 +1,171 @@
+Leite achocolatado
+Açúcar
+Adoçante
+Arroz
+Atum
+Azeite
+Azeitona
+Batata palha
+Baunilha
+Biscoito
+Bombom
+Café
+Caldo
+Ketchup
+Cereal
+Chá
+Cogumelos
+Chocolate
+Chocolate granulado
+Coco ralado
+Creme de leite
+Farinha de mandioca
+Farinha de milho
+Farinha de rosca
+Farinha de trigo
+Feijão
+Fermento
+Gelatina
+Geleia
+Leite
+Leite condensado
+Leite de coco
+Lentilha
+Macarrão
+Maionese
+Molho
+Mostarda
+Polpa de tomate
+Polvilho
+Sal
+Sal grosso
+Salsicha
+Sardinha
+Sopa
+Tempero
+Água
+Água de coco
+Água tônica
+Cerveja
+Champanhe
+Licor
+Refrigerante
+Rum
+Sumo
+Vinho
+Vodca
+Uísque
+Abacate
+Abacaxi
+Abóbora
+Agrião
+Alface
+Alho
+Banana
+Batata
+Berinjela
+Beterraba
+Bróculos
+Cebola
+Cenoura
+Chuchu
+Couve
+Espinafre
+Goiaba
+Laranja
+Maçã
+Mamão
+Manjericão
+Melância
+Melão
+Ovos
+Pêra
+Pimentão
+Repolho
+Rúcula
+Salsinha
+Temperinho verde
+Tomate
+Uva
+Vagem
+Frutas secas
+Ervilha
+Palmito
+Milho
+Pepino
+Biscoitos
+Bolos
+Doces
+Pães
+Salgados
+Tortas
+Bacon
+Gordura vegetal
+Hambúrguer
+Iogurte
+Leite
+Linguiça
+Manteiga
+Margarina
+Mortadela
+Nata
+Patê
+Peito de peru
+Presunto
+Queijo
+Queijo ralado
+Requeijão
+Ricota
+Salame
+Fósforo
+Velas
+Bovina
+Frango
+Absorvente
+Acetona
+Pilhas
+Carvão
+Miúdos
+Peixe
+Porco
+Algodão
+Antisséptico
+Aparelho de barbear
+Condicionador
+Cortador de unhas
+Cotonete
+Creme de barbear
+Desodorizante
+Escova de dentes
+Fio-dental
+Fraldas
+Gel
+Hidratante
+Lâmina de barbear
+Lenço de papel
+Lixa
+Pente
+Pinça
+Preservativo
+Sabonete
+Shampoo
+Talco
+Álcool
+Amaciador
+Desinfetante
+Detergente
+Esponja
+Guardanapos
+Inseticida
+Lava-roupas
+Limpa-vidro
+Lustra-móveis
+Palito de dente
+Pano de limpeza
+Pano de prato
+Papel higiênico
+Purificador de ambientes
+Sabão em pó
+Saco de lixo
+Toalha de papel
+Vassoura

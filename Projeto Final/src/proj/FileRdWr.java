@@ -20,7 +20,7 @@ public abstract class FileRdWr {
 	public static <E> void readFile(String fileName, List<E> fileCont){
 		try{
 			Scanner fRead = new Scanner(new File(fileName));
-			fRead.nextLine();
+			//fRead.nextLine();
 			while(fRead.hasNextLine()){
 				fileCont.add((E) fRead.nextLine());
 			}
