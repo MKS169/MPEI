@@ -34,7 +34,7 @@ public class Supermercado {
 		out.println("2) Repor stock");
 		out.println("3) Registar nova loja");
 		out.println("4) Registar novo produto");
-		out.println("5) Terminar");
+		out.println("0) Terminar");
 	}
 	public static void operaçao(int opcao) {
 		switch(opcao) {
@@ -42,7 +42,7 @@ public class Supermercado {
 		case 2: reporStock(); break;
 		case 3: registarLoja(); break;
 		case 4: registarProduto(); break;
-		case 5: out.println("Terminado"); break;
+		case 0: out.println("Terminado"); break;
 		default: err.println("\nOperação inexistente!");
 		}
 	}
@@ -122,10 +122,21 @@ public class Supermercado {
 
 
 	private static void reporStock() {
-//		for (Loja loja: conjLojas.todasAsLojas()) {
-//			for(String produto : loja.)
-//		}
+		String lojas[] = conjLojas.nomeLojas().split(", ");
+		String produtos[];
+		int quantARepor;
 		
+		for(int i=0; i< lojas.length; i++) {
+			produtos = conjLojas.loja(lojas[i]).produtos();
+			for(int j=0; j<produtos.length; j++) {
+				if(conjLojas.loja(lojas[i]).getQuantidade(produtos[j])<10){
+					quantARepor = (int)(Math.random()*20+10);
+					conjLojas.loja(lojas[i]).reporStock(produtos[j], quantARepor);
+					out.println("Stock reposto do produto " + produtos[j]+ " na loja "+ lojas[i]);
+					conjLojas.printToFile();
+				}
+			}
+		}
 	}
 	
 	private static void registarLoja() {

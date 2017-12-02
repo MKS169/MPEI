@@ -53,7 +53,8 @@ public class ComprasSet {
 		LinkedList<Compras> aux = new LinkedList<>();
 		for (Compras elem: comprasSet)
 			if(elem.getNif() == nif)
-				aux.add(elem);
+				if(!aux.contains(elem))
+					aux.add(elem);
 		return aux;
 	}
 }

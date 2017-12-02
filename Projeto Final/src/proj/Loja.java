@@ -14,13 +14,12 @@ public class Loja implements LojaInterface{
 	private String nomeLoja;
 	private Map<String, Integer> produtos;
 	private CountFilter countFilterProdutos;
-	//Bloom filter de produtos??????????????
 	
 	public Loja(String nomeLoja, String listaProdutos) {
 		this.nomeLoja = nomeLoja;
 		produtos = new HashMap<>();
 		String [] aux = listaProdutos.split(", ");
-		countFilterProdutos = new CountFilter(aux.length, 3);
+		countFilterProdutos = new CountFilter(aux.length, 5);
 		for (String elem: aux) {
 			addProduto(elem.split(": ")[0], Integer.parseInt(elem.split(": ")[1]));
 			//produtos.put(elem.split(": ")[0], Integer.parseInt(elem.split(": ")[1]));
@@ -31,6 +30,16 @@ public class Loja implements LojaInterface{
 	
 	public String getNomeLoja() {
 		return nomeLoja;
+	}
+	
+	public String[] produtos() {
+		String[] aux = new String[produtos.size()];
+		int i=0;
+		for(String produto : produtos.keySet()) {
+			aux[i]=produto;
+			i++;
+		}
+		return aux;
 	}
 	
 	public int getQuantidade(String produto) {
@@ -49,6 +58,8 @@ public class Loja implements LojaInterface{
 	public boolean addProduto(String produto, int quantidade) {
 		if(produto == null)
 			return false;
+		
+		countFilterProdutos.bloomInsertion(produto, quantidade);
 		if(produtos.containsKey(produto)){
 			int aux = produtos.get(produto) + quantidade;
 			produtos.put(produto, aux);
@@ -58,10 +69,6 @@ public class Loja implements LojaInterface{
 			produtos.put(produto, quantidade);
 			return true;
 		}
-	}
-	
-	public void addProduto(String produto) {
-		countFilterProdutos.bloomInsertion(produto);
 	}
 
 	@Override

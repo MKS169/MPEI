@@ -5,17 +5,15 @@ import java.util.List;
 
 public class DistanceFilter {
 
-	private int len, pares = 0;
+	private int pares = 0;
 	private double limite;
-	private List<String> similares;
+	private List<String> similares = new ArrayList<String>(); // cliente1 + cliente2 + distancia
 	
 	public DistanceFilter(ClienteSet clientes, double[][] J, double threshold){
-		this.len = clientes.size();					// número de clientes
 		this.limite = threshold;					// limite de distançia
-		this.similares = new ArrayList<String>();	// cliente1 + cliente2 + distancia
 		
-		for(int i = 0; i < len-1; i++){
-			for(int j = i+1; j < len; j++){
+		for(int i = 0; i < J.length; i++){				// com j = i + 1 toda a metade, com i > j da matriz J[][] é ignorada 
+			for(int j = 0; j < J[i].length; j++){			// visto que não contem qq valor
 				if(J[i][j] < limite){
 					similares.add(clientes.getCliente(i).getNome() + " " + clientes.getCliente(j).getNome() + " " + J[i][j]);
 					pares++;
@@ -26,7 +24,9 @@ public class DistanceFilter {
 	}
 
 	public String[] similares(){
-		return (String[]) similares.toArray();
+		String[] s = new String[similares.size()];
+		s = similares.toArray(s);
+		return s;
 	}
 	
 	public int NumOfPares(){

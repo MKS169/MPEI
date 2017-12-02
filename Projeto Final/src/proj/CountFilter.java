@@ -33,6 +33,17 @@ public class CountFilter {
 		}
 	}
 	
+	void bloomInsertion(String s, int qt){				// s será um produto, qt será quantidade
+		int bloomPos;
+		
+		for(int i = 1; i <= k; i++){					// i = 0 -> hash = 0
+			s = s.concat(String.valueOf(i));			// acrescenta sequencialmente o valor em "i" no final da string
+			bloomPos = hash(s)%bloom.length;			// começando em 0 e até a um valor máximo k-1
+			System.out.println(s + " " + bloomPos);
+			bloom[bloomPos] += qt;
+		}
+	}
+	
 	boolean isMember(String s){
 		int bloomPos;
 		for(int i = 1; i <= k; i++){					// i = 0 -> hash = 0;

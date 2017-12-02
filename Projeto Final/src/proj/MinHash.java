@@ -16,6 +16,7 @@ public class MinHash {
 	private ComprasSet compra;
 	private ClienteSet cliente;
 	private String[][] set;
+	
 	MinHash(ComprasSet cp, ClienteSet c){						// sets serão compras por cliente organizadas pela ordem da
 																// lista dos clientes para comparação
 		this.compra = cp;
@@ -23,28 +24,23 @@ public class MinHash {
 		
 		this.set = createSet(cliente,compra);					// contém compras correspondente a cada cliente	
 																// set[i] = array de compras do cliente "i"
-		minHash = new int[cliente.size()][maxSize(set)];
+		minHash = new int[cliente.size()][];
 		
 		for(int i = 0; i < cliente.size(); i++){
+			minHash[i] = new int[set[i].length];
+			
 			for(int j = 0; j < set[i].length; j++){
 				int min = min(hash(set[i][j],k));
 				minHash[i][j] = min;
-			}	
+			}
+			
 		}
 		System.out.println("Fim de MinHash");
 	}
+	
 	public String[][] set(){
 		return set;
 	}
-	private int maxSize(String[][] set){
-		int max = 0;
-		
-		for(int i = 0; i < set.length; i++){
-			if(max < set[i].length)
-				max = set[i].length;
-		}
-		return max;
-	}	
 	
 	private String[][] createSet(ClienteSet cliente, ComprasSet compra){
 		String[][] set = new String[cliente.size()][compra.size()];
@@ -79,9 +75,10 @@ public class MinHash {
 		
 		for(int j = 0; j < k; j++){
 			int hash = 2017+k;
+			s = s.concat(""+j);
 			
 			for(int i = 0; i < s.length(); i++){
-				hash = (int) ((hash*i*k + s.charAt(i))%(Math.pow(2, 32)-1));
+				hash = (int) ((hash*31 + s.charAt(i))%(Math.pow(2, 32)-1));
 				if(hash < 0)
 					hash = -hash;
 			}

@@ -7,34 +7,52 @@
 
 package proj;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Jaccard {
 	
-	private double[][] distance;
 	private int[][] minHash;
+	private Map<Integer, List<Double>> dist = new HashMap<>();
 	
 	public Jaccard(MinHash minHashes){
 		this.minHash = minHashes.getMinHash();
-		this.distance = new double[minHash.length][minHash.length];		//[nº de clientes][nº de clientes]
 	
 		for(int i = 0; i < minHash.length; i++){
+			List<Double> aux = new ArrayList<>();
 			for(int j = i+1; j < minHash.length; j++){
 				double x = sum(minHash[i],minHash[j]);
-				distance[i][j] = 1 - (x/minHash[i].length);
+				double f = minHash[i].length + minHash[j].length;
+				aux.add(1-(x/f));
 			}
+			dist.put(i, aux);
 		}
 		System.out.println("Fim de Jaccard");
 	}
 	
 	public double[][] getDistance(){
-		return this.distance;
+		double[][] aux = new double[dist.size()][];
+		for(int i = 0; i < dist.size(); i++){
+			List<Double> a = dist.get(i);
+			double[] d = new double[a.size()];
+			
+			for(int j = 0; j < d.length; j++)
+				d[j] = a.get(j);
+			
+			aux[i] = d;
+				
+		}
+		return aux;
 	}
 	
 	private int sum(int[] a, int[] b){
 		int x = 0;
 		
-		for(int i = 0; i < a.length; i++)
-			for(int j = 0; j < b.length; j++)
-				if(a[i] == b[j])
+		for(int i: a)
+			for(int j: b)
+				if(i == j)
 					x++;
 		
 		return x;
