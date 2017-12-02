@@ -9,9 +9,9 @@ public class BloomTest {
 	public static void main(String[] args) {
 		try {
 			//------------------Teste 1---------------------------------------------------
-			BloomFilter bf = new BloomFilter(500,3);			// length = 100/0.8;	hashFunctions = 3;
+			CountFilter bf = new CountFilter(500,3);				// length = 100/0.8;	hashFunctions = 3;
 			
-			Scanner sc = new Scanner(new File("Test.txt"));		// não existem produtos repetidos nesta lista
+			Scanner sc = new Scanner(new File("Test.txt"));			// não existem produtos repetidos nesta lista
 																
 			while(sc.hasNextLine())
 				bf.bloomInsertion(sc.nextLine());
@@ -32,7 +32,7 @@ public class BloomTest {
 			sc.close();
 			
 			//-------------------Teste 2------------------------------------------------------
-			BloomFilter bf2 = new BloomFilter(500,3);				// length = 100/0.8;	hashFunctions = 3;
+			CountFilter bf2 = new CountFilter(500,3);					// length = 100/0.8;	hashFunctions = 3;
 			
 			Scanner sc2 = new Scanner(new File("TestRepeat.txt"));		// existem produtos repetidos nesta lista
 																		// o numero de colisões deve ser 3

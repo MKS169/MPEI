@@ -34,7 +34,7 @@ public class Test {
 		
 		Cliente c;
 
-		System.out.println("Nome\tDataNasc\tNIF");
+		System.out.println("Nome\tNIF");
 		for(int i =0; i<10; i++) {
 			c = new Cliente("Exemplo" + i, i);
 			System.out.println(c);

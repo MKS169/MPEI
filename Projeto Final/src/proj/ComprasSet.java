@@ -29,8 +29,24 @@ public class ComprasSet {
 		}
 	}
 	
+	public boolean addCompra(Compras compra) {
+		if(compra==null) return false;
+		comprasSet.add(compra);
+		return true;
+	}
+	
+	// MELHORAR MÉTODO -- fazer de forma a só ser escrito, no final, aquilo que foi colocado a mais
+	public void printToFile() {
+		String head = "NIF\tCompras\tLoja";
+		FileRdWr.writeFile("Compras.txt", comprasSet, head);
+	}
+		
 	public Compras getCompras(int index){
 		return comprasSet.get(index);
+	}
+	
+	public int size(){
+		return comprasSet.size();
 	}
 	
 	public LinkedList<Compras> comprasDoCliente(int nif){

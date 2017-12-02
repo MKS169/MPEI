@@ -23,7 +23,7 @@ public class ClienteSet {
 		clienteSet = new ArrayList<>();// VER MELHOR FORMA DE FAZER ISTO!!
 		comprasFeitasPeloCliente = new HashMap<>();
 		comprasSet = new ComprasSet();
-		//addClienteFromFile();
+		addClienteFromFile();
 	}
 	
 	public void addClienteFromFile() {
@@ -57,5 +57,25 @@ public class ClienteSet {
 	
 	public void printClientes() {
 		clienteSet.forEach(System.out::println);
+	}
+
+	// MELHORAR MÉTODO -- fazer de forma a só ser escrito, no final, aquilo que foi colocado a mais
+	public void printToFile() {
+		String head = "Nome\tNIF";
+		FileRdWr.writeFile("DadosCliente.txt", clienteSet, head);
+	}
+		
+	public boolean clienteExiste(int nif) {
+		for(int i = 0; i<clienteSet.size(); i++) {
+			if(clienteSet.get(i).getNif()==nif) {
+				return true;
+			}
+		}
+		return false;
+	}
+		
+	public void listaDeSugestoes(int nif) {
+		//FALTA FAZER ISTO!!!
+		System.out.println("FALTA CRIAR AINDA!");
 	}
 }

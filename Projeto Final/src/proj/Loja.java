@@ -13,12 +13,14 @@ import java.util.Map;
 public class Loja implements LojaInterface{
 	private String nomeLoja;
 	private Map<String, Integer> produtos;
+	private CountFilter countFilterProdutos;
 	//Bloom filter de produtos??????????????
 	
 	public Loja(String nomeLoja, String listaProdutos) {
 		this.nomeLoja = nomeLoja;
 		produtos = new HashMap<>();
 		String [] aux = listaProdutos.split(", ");
+		countFilterProdutos = new CountFilter(aux.length, 3);
 		for (String elem: aux) {
 			addProduto(elem.split(": ")[0], Integer.parseInt(elem.split(": ")[1]));
 			//produtos.put(elem.split(": ")[0], Integer.parseInt(elem.split(": ")[1]));
@@ -26,7 +28,23 @@ public class Loja implements LojaInterface{
 			// elem.split(": ")[1] --> Quantidade do produto (valor)	
 		}
 	}
-
+	
+	public String getNomeLoja() {
+		return nomeLoja;
+	}
+	
+	public int getQuantidade(String produto) {
+		return produtos.get(produto);
+	}
+	
+	public void atualizarStock(String produto, int quantidadeComprada) {
+		produtos.put(produto, produtos.get(produto) - quantidadeComprada);
+	}
+	
+	public void reporStock(String produto, int quantidadeARepor) {
+		produtos.put(produto, produtos.get(produto)+quantidadeARepor);
+	}
+	
 	@Override
 	public boolean addProduto(String produto, int quantidade) {
 		if(produto == null)
@@ -41,6 +59,10 @@ public class Loja implements LojaInterface{
 			return true;
 		}
 	}
+	
+	public void addProduto(String produto) {
+		countFilterProdutos.bloomInsertion(produto);
+	}
 
 	@Override
 	public boolean removeProduto(String produto) {
@@ -54,16 +76,26 @@ public class Loja implements LojaInterface{
 		else
 			return false;
 	}
+	
 	public String hashToString() {
 		String s = "";
-		for (String elem: produtos.keySet()) {
+		for (String elem: produtos.keySet()) 
 			s += elem + ": "+ produtos.get(elem) + ", ";
-		}
+		
 		return s.substring(0, s.length() - 2); // para nao aparecer ", " no ultimo elemento
 	}
 	
 	@Override
 	public String toString() {
 		return nomeLoja + "\t" + hashToString();
+	}
+
+	public boolean contains(String produto) {
+		if(produto==null) return false;
+		
+		for(String prod : produtos.keySet())
+			if(prod.equals(produto)) return true;
+		
+		return false;
 	}
 }

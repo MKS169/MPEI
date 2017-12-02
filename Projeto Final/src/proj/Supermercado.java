@@ -8,130 +8,209 @@
 package proj;
 
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Scanner;
+import static java.lang.System.*;
+
 public class Supermercado {
+	static Scanner sc= new Scanner(System.in);
+	static LojaSet conjLojas = new LojaSet();
+	static ClienteSet conjClientes = new ClienteSet();
+	static ComprasSet conjCompras = new ComprasSet();
+	
 	public static void main(String[] args) throws FileNotFoundException {
-		//add stock
-		//String[] supermercados = {"Continente", "Pingo Doce", "Intermarché"};
-		//ArrayList[] supermercados = new ArrayList()[3];
+		int opcao=0;
 		
-		
-		
-		// ---------------------------
-		int numSupermercados;
-		int indexSupermercado;
-		
-		ArrayList<String> prod = new ArrayList<>(); // lista de produtos
-		FileRdWr.readFile("ListaDeCompras.txt", prod);
-		HashMap<Integer, ArrayList<String>> compras = new HashMap<>();
-		
-		int primeiro;
-		int segundo;
-		int terceiro;
-		
-		compras.put(0, new ArrayList<>());
-		compras.put(1, new ArrayList<>());
-		compras.put(2, new ArrayList<>());
-		
-		for (int i = 0; i< prod.size(); i++) {
-			primeiro = (int) (Math.random()*2);
-			segundo  = (int) (Math.random()*2);
-			terceiro = (int) (Math.random()*2);
-			
-			if(primeiro==1) compras.get(0).add(prod.get(i));
-			if(segundo==1) compras.get(1).add(prod.get(i));
-			if(terceiro==1) compras.get(2).add(prod.get(i));
-			if(primeiro!=1 && segundo!=1 && terceiro!=1) compras.get((int)(Math.random()*2)).add(prod.get(i));
+		do {
+			menu();
+			out.print("Opção: ");
+			opcao = Integer.parseInt(sc.nextLine());
+			operaçao(opcao);
+		}while(opcao!=5);
+	}
+	
+	public static void menu() {
+		out.println("\n---- OPERAÇÕES ----");
+		out.println("1) Efetuar compra");
+		out.println("2) Repor stock");
+		out.println("3) Registar nova loja");
+		out.println("4) Registar novo produto");
+		out.println("5) Terminar");
+	}
+	public static void operaçao(int opcao) {
+		switch(opcao) {
+		case 1: efetuarCompra(); break;
+		case 2: reporStock(); break;
+		case 3: registarLoja(); break;
+		case 4: registarProduto(); break;
+		case 5: out.println("Terminado"); break;
+		default: err.println("\nOperação inexistente!");
 		}
-			String continente = "Continente\t";
-			for(int i=0; i<compras.get(0).size(); i++) {
-				continente+=compras.get(0).get(i) + ": " + (int)(Math.random()*50+50) + ", ";
-			}
-			String pingo_doce = "Pingo-doce\t";
-			for(int i=0; i<compras.get(1).size(); i++) {
-				pingo_doce +=compras.get(1).get(i) + ": " + (int)(Math.random()*50+50) + ", ";
-			}
+	}
+	
+	private static void efetuarCompra() {
+		String nomeLoja, nomeCliente, produto, compra="";
+		int nif, numProdutos, quantidade;
+		
+		try {
+			out.print("Insira nome da loja que pretende frequentar (" + conjLojas.nomeLojas() + "):");
+			nomeLoja = sc.nextLine().toLowerCase();
+			nomeLoja = nomeLoja.replaceFirst(nomeLoja.substring(0,1), nomeLoja.substring(0,1).toUpperCase());
 			
-			String intermarché = "Intermarché\t";
-			for(int i=0; i<compras.get(2).size(); i++) {
-				intermarché+=compras.get(2).get(i) + ": " + (int)(Math.random()*50+50) + ", ";
-			}
-			
-			PrintWriter print = new PrintWriter("Stock.txt");
-			
-			print.println("Loja\tProdutos");
-			print.println(continente.substring(0, continente.length()-2));
-			print.println(pingo_doce.substring(0, pingo_doce.length()-2));
-			print.println(intermarché.substring(0, intermarché.length()-2));
-			print.close();
-			
-			/**numSupermercados = (int) (Math.random()*2+1);
-			for (int j=0;j<=numSupermercados ;j++) {
+			if(conjLojas.lojaExiste(nomeLoja)) {
 				do {
-					indexSupermercado = (int) (Math.random()*2);
-				} while(compras.get(indexSupermercado).contains(prod.get(i)));
-				compras.get(indexSupermercado).add(prod.get(i));
-			}
-			*/
-		
-		//System.out.println(compras.get(0));
-		//System.out.println(compras.get(1));
-		//System.out.println(compras.get(2));
-		
-		//String s = "Continente\t" + 
-				/**		do {
-				indexSupermercado = (int) (Math.random()*2+1);
-				}while();
-				supermercados[indexSupermercado];
-			}
-		}
-		*/
-		// -----------------------
-		
-		/**ArrayList<String> array = new ArrayList<>();
-		FileRdWr.readFile("NumerosAux.txt", array);
-		ArrayList<String> arrayProdutos = new ArrayList<>();
-		FileRdWr.readFile("ListaDeCompras.txt", arrayProdutos);
-		ArrayList<String> produtos = new ArrayList<>();
-		
-		ArrayList<String> new_array = new ArrayList<>();
-		
-		int lojas;
-		int nifs;
-		int indexProduto;
-		int nProd;
-		int numProd;
-		String s = "";
-		
-		String[] arr = {"Continente", "Pingo Doce", "Intermarché"};
-		for(int i=0; i<10000; i++) {
-			s = "";
-			produtos.clear();
-			nifs = (int)(Math.random()*array.size()); // gerar nifs (dos clientes existentes)
-			lojas = (int)(Math.random()*arr.length); // gerar nomes de Lojas
-			
-			
-			nProd = (int)((Math.random()*10)+1);
-			for (int j = 0; j<nProd; j++) {
-				numProd = (int)((Math.random()*10)+1);
-				indexProduto = (int)(Math.random()*arrayProdutos.size());
-				if (!produtos.contains(arrayProdutos.get(indexProduto))) {
-					produtos.add(arrayProdutos.get(indexProduto));
-					s+= arrayProdutos.get(indexProduto) + ": " + numProd + ", ";
+					out.println("Insira o seu NIF: ");
+					nif = Integer.parseInt(sc.nextLine());
+					if(Integer.toString(nif).length()!=9) out.println("NIF tem de ter 9 dígitos!");
+				}while(Integer.toString(nif).length()!=9);
+				
+				if(!conjClientes.clienteExiste(nif)) {
+					out.println("É necessário registar-se!\nInsira o seu nome: ");
+					
+					do {
+						nomeCliente = sc.nextLine();
+						if(nomeCliente.equals("")) out.println("Nome inválido!\nInsira o seu nome: ");
+					}while(nomeCliente.equals(""));
+					
+					conjClientes.addCliente(new Cliente(nomeCliente, nif));
+					conjClientes.printToFile(); // coloca-o no registo
+					out.println("Registado com sucesso!");
 				}
+				else {
+					out.println("Poderá querer comprar os seguintes produtos: ");
+					conjClientes.listaDeSugestoes(nif); // ainda falta criar
+				}
+				
+				do {
+					out.println("Insira o numero de produtos que pretende comprar: ");
+					numProdutos = Integer.parseInt(sc.nextLine());
+					if(numProdutos<=0) out.println("Numero de produtos inválido!");
+				}while(numProdutos<=0);
+				
+				for(int i=0; i<numProdutos;i++) {
+					do {
+						out.print("Produto: ");
+						produto = sc.nextLine();
+						produto = produto.replace(produto.charAt(0), Character.toUpperCase(produto.charAt(0)));
+						if(produto.equals("")) out.println("Nome do produto inválido!");
+					}while(produto.equals(""));
+					
+					do {
+						out.print("Quantidade: ");
+						quantidade = Integer.parseInt(sc.nextLine());
+						if(quantidade<=0) out.println("Quantidade inválida!");
+					}while(quantidade<=0);
+					
+					if(conjLojas.produtoExiste(nomeLoja, produto, quantidade)) {
+						compra += produto + ": " + quantidade + ", ";
+						conjLojas.loja(nomeLoja).atualizarStock(produto, quantidade);
+						conjLojas.printToFile();
+					}
+					// falta criar a parte de mostrar em que loja poderá existir um produto que nao exista nesta loja
+				}
+				conjCompras.addCompra(new Compras(nif, compra.substring(0, compra.length()-2)));
+				conjCompras.printToFile();
+				out.println("Compra registada com sucesso!");
 			}
-			new_array.add(array.get(nifs) + "\t" + s.substring(0,s.length()-2)  + "\t" + arr[lojas]);
+			else {
+				err.println("Loja não existente!");
+				throw new Exception();
+			}
+		}catch(Exception e) {
+			err.println("Erro no processo de compra!");
 		}
+	}
+
+
+	private static void reporStock() {
+//		for (Loja loja: conjLojas.todasAsLojas()) {
+//			for(String produto : loja.)
+//		}
 		
-		FileRdWr.writeFile("ParaUsar.txt", new_array, "");
-		*/
-		/**
-		for( int i=0; i< array.size(); i++)
-			new_array.add(array.get(i).split("\t")[1]);
-		
-		FileRdWr.writeFile("NumerosAux.txt", new_array, "");
-		*/
+	}
+	
+	private static void registarLoja() {
+		String nomeLoja, produto, produtos="";
+		int numProdutos, quantidade;
+		try {
+			out.print("Insira nome da loja que pretende registar: ");
+			nomeLoja = sc.nextLine().toLowerCase();
+			nomeLoja = nomeLoja.replaceFirst(nomeLoja.substring(0,1), nomeLoja.substring(0,1).toUpperCase());
+			if(conjLojas.lojaExiste(nomeLoja)) {
+				err.println("Loja já existe!");
+				throw new Exception();
+			}
+			
+			out.print("Insira o numero de produtos que pretende ter na loja: ");
+			numProdutos = Integer.parseInt(sc.nextLine());
+			
+			if(numProdutos<=0) {
+				err.println("A loja necessita de, pelo menos, um produto!");
+				throw new Exception();
+			}
+	
+			for (int i=0; i<numProdutos; i++) {
+				do {
+					out.print("Produto: ");
+					produto = sc.nextLine();
+					produto = produto.replace(produto.charAt(0), Character.toUpperCase(produto.charAt(0)));
+					if(produto.equals("")) out.println("Não é possível adicionar produtos sem nome!");
+				}while(produto.equals(""));
+				
+				do {
+					out.print("Quantidade: ");
+					quantidade = Integer.parseInt(sc.nextLine());
+					if (quantidade<=0) out.println("É necessário colocar, pelo menos, uma unidade em stock!");
+				}while(quantidade<=0);
+				
+				produtos+= produto + ": " + quantidade + ", ";
+			}
+			conjLojas.addLoja(new Loja(nomeLoja, produtos.substring(0, produtos.length()-2)));
+			conjLojas.printToFile();
+			out.println("Loja registada com sucesso!");
+		}catch(Exception e) {
+			err.println("Impossível terminar processo de registo da Loja!");
+		}
+	}
+	
+	private static void registarProduto() {
+		String nomeLoja, produto;
+		int quantidade;
+			try {
+				out.print("Insira nome da loja onde pretende registar o produto: ");		
+				nomeLoja = sc.nextLine().toLowerCase();
+				nomeLoja = nomeLoja.replaceFirst(nomeLoja.substring(0,1), nomeLoja.substring(0,1).toUpperCase());
+				
+				if(conjLojas.loja(nomeLoja)==null) {
+					err.println("Loja não existente!");
+					throw new Exception(); 
+				}
+				
+				out.print("Produto: ");
+				produto = sc.nextLine();
+				produto = produto.replace(produto.charAt(0), Character.toUpperCase(produto.charAt(0)));
+				if(conjLojas.loja(nomeLoja).contains(produto) || produto.equals("")) {
+					err.println("Nome do produto já existe ou campo por preencher!");
+					throw new Exception();
+				}
+				
+				out.print("Quantidade: ");
+				quantidade = Integer.parseInt(sc.nextLine());
+				
+				if(quantidade<=0) {
+					out.println("Quantidade do produto inválida!");
+					throw new Exception();
+				}
+				
+				conjLojas.loja(nomeLoja).addProduto(produto, quantidade);
+				conjLojas.printToFile();
+			}catch(Exception e) {
+				err.println("Impossível terminar processo de registo do produto!");
+			}
 	}
 }
+
+
+
+
+
+

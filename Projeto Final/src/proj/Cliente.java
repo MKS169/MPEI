@@ -9,26 +9,19 @@ package proj;
 
 public class Cliente {
 	private String nome;
-	private Date dataNasc;
 	private int nif;
 	
-	public Cliente(String nome, Date dataNasc, int nif) {
+	public Cliente(String nome, int nif) {
 		this.nome = nome;
-		this.dataNasc = dataNasc;
 		this.nif = nif;
 	}
 	public Cliente(String linha) {
 		this.nome = linha.split("\t")[0];
-		this.dataNasc = new Date(linha.split("\t")[1]);
-		this.nif = Integer.parseInt(linha.split("\t")[2]);
+		this.nif = Integer.parseInt(linha.split("\t")[1]);
 	}
 	
 	public String getNome() {
 		return nome;
-	}
-
-	public Date getDataNasc() {
-		return dataNasc;
 	}
 
 	public int getNif() {
@@ -37,7 +30,7 @@ public class Cliente {
 	
 	@Override
 	public String toString() {
-		return nome + "\t" + dataNasc + "\t" + nif;
+		return nome + "\t" + nif;
 	}
 
 	@Override
@@ -48,11 +41,6 @@ public class Cliente {
 			return false;
 
 		Cliente c = (Cliente) obj;
-		if (dataNasc == null) {
-			if (c.getDataNasc() != null)
-				return false;
-		} else if (!dataNasc.equals(c.getDataNasc()))
-			return false;
 		if (nif != c.getNif())
 			return false;
 		if (nome == null) {

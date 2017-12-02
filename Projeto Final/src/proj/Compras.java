@@ -20,7 +20,7 @@ public class Compras {
 		this.nif = nif;
 		this.compra = compra;
 		detalhesDaCompra = new HashMap<>();
-		listaDaCompra(compra);		
+		addCompras(compra);		
 	}
 	
 	public int getNif() {
@@ -32,7 +32,7 @@ public class Compras {
 	}
 
 	// exemplo: Carne: 1, Leite: 1
-	private void listaDaCompra(String compra) {
+	private void addCompras(String compra) {
 		String[] aux = compra.split(", ");
 		for (String elem: aux)
 			detalhesDaCompra.put(elem.split(": ")[0], Integer.parseInt(elem.split(": ")[1]));

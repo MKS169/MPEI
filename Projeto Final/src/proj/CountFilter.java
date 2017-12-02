@@ -11,12 +11,12 @@ package proj;
 // k -> numero de hashFunctions
 // CountFilter
 
-public class BloomFilter {
+public class CountFilter {
 	private int n, k;
-	private final double factor = 0.8;	// elevado factor de carga
+	private final double factor = 0.8;					// elevado factor de carga
 	private int[] bloom;
 	
-	BloomFilter(int len, int hash){
+	CountFilter(int len, int hash){
 		this.n = len;
 		this.k = hash;
 		this.bloom = new int[(int)(n/factor)];
