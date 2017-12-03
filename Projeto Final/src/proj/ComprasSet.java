@@ -35,7 +35,6 @@ public class ComprasSet {
 		return true;
 	}
 	
-	//VERIFICAR METODO
 	public void printToFile() {
 		List<Compras> fich = new ArrayList<>();
 		List<Compras> nEqual = new ArrayList<>();

@@ -59,7 +59,6 @@ public class ClienteSet {
 		clienteSet.forEach(System.out::println);
 	}
 
-	//VERIFICAR METODO
 	public void printToFile() {
 		List<Cliente> fich = new ArrayList<>();
 		List<Cliente> nEqual = new ArrayList<>();

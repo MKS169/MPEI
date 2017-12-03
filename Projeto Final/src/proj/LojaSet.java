@@ -49,7 +49,6 @@ public class LojaSet {
 		}
 	}
 
-	//VERIFICAR METODO
 	public void printToFile() {
 		List<Loja> fich = new ArrayList<>();
 		List<Loja> nEqual = new ArrayList<>();
