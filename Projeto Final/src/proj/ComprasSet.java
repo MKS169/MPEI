@@ -35,10 +35,18 @@ public class ComprasSet {
 		return true;
 	}
 	
-	// MELHORAR MÉTODO -- fazer de forma a só ser escrito, no final, aquilo que foi colocado a mais
+	//VERIFICAR METODO
 	public void printToFile() {
-		String head = "NIF\tCompras\tLoja";
-		FileRdWr.writeFile("Compras.txt", comprasSet, head);
+		List<Compras> fich = new ArrayList<>();
+		List<Compras> nEqual = new ArrayList<>();
+		String head = "Novo Conteudo";
+		FileRdWr.readFile("Compras.txt", fich);
+		
+		nEqual.addAll(fich);
+		nEqual.addAll(comprasSet);
+		nEqual.removeAll(fich);
+		
+		FileRdWr.writeFile("Compras.txt", nEqual, head, true);
 	}
 		
 	public Compras getCompras(int index){
@@ -57,6 +65,13 @@ public class ComprasSet {
 					aux.add(elem);
 		return aux;
 	}
+	
+	@Override
+	public String toString(){
+		String s = "";
+		for(Compras c: comprasSet){
+			s += c.toString() + "\n";
+		}
+		return s;
+	}
 }
-// CONJUNTO DE COMPRAS EXISTENTES ATE AGORA
-// FALTA FAZER O TOSTRING()

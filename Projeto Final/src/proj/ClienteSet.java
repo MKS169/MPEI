@@ -59,10 +59,18 @@ public class ClienteSet {
 		clienteSet.forEach(System.out::println);
 	}
 
-	// MELHORAR MÉTODO -- fazer de forma a só ser escrito, no final, aquilo que foi colocado a mais
+	//VERIFICAR METODO
 	public void printToFile() {
-		String head = "Nome\tNIF";
-		FileRdWr.writeFile("DadosCliente.txt", clienteSet, head);
+		List<Cliente> fich = new ArrayList<>();
+		List<Cliente> nEqual = new ArrayList<>();
+		String head = "Novo Conteudo";
+		FileRdWr.readFile("DadosCliente.txt", fich);
+		
+		nEqual.addAll(fich);
+		nEqual.addAll(clienteSet);
+		nEqual.removeAll(fich);
+		
+		FileRdWr.writeFile("DadosCliente.txt", nEqual, head, true);
 	}
 		
 	public boolean clienteExiste(int nif) {
@@ -77,5 +85,15 @@ public class ClienteSet {
 	public void listaDeSugestoes(int nif) {
 		//FALTA FAZER ISTO!!!
 		System.out.println("FALTA CRIAR AINDA!");
+	}
+	
+	@Override
+	public String toString(){
+		String s = "";
+		
+		for(Cliente c: clienteSet)
+			s += c.toString() + "\n";
+		
+		return s;
 	}
 }

@@ -38,14 +38,29 @@ public class LojaSet {
 		return lojaSet.size();
 	}
 	
-	
-	// fazer removeLoja(Loja l){}
-	
+	public boolean removeLoja(Loja l){
+		if(l == null)
+			return false;
+		if(!lojaSet.contains(l))
+			return false;
+		else{
+			lojaSet.remove(l);
+			return true;
+		}
+	}
 
-	// MELHORAR MÉTODO -- fazer de forma a só ser escrito, no final, aquilo que foi colocado a mais
+	//VERIFICAR METODO
 	public void printToFile() {
-		String head = "Loja\tProdutos";
-		FileRdWr.writeFile("Stock.txt", lojaSet, head);
+		List<Loja> fich = new ArrayList<>();
+		List<Loja> nEqual = new ArrayList<>();
+		String head = "Novo Conteudo";
+		FileRdWr.readFile("Stock.txt", fich);
+		
+		nEqual.addAll(fich);
+		nEqual.addAll(lojaSet);
+		nEqual.removeAll(fich);
+		
+		FileRdWr.writeFile("Stock.txt", nEqual, head, true);
 	}
 	
 	// função redundante??

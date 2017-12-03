@@ -6,7 +6,7 @@
  */
 
 package proj;
-
+// CLASSE DE TESTE DA MINHASH PARA PARES COM SEMELHANÇA < 0.5
 public class minHashTEST {
 
 	public static void main(String[] args) {

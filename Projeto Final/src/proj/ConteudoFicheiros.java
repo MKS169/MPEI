@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 // Classe utilizada para gerar o conteúdo dos ficheiros utilizados
 // NÃO EXECUTAR ESTA CLASSE. EXISTE, NESTE MOMENTO, APENAS PARA MOSTRAR COMO FORAM CRIADOS OS FICHEIROS
@@ -88,8 +89,26 @@ public class ConteudoFicheiros {
 																									  // com informação "adequada"
 		}
 		
-		FileRdWr.writeFile("Ex.txt", new_array, "NIF\tCompra\tLoja");
+		FileRdWr.writeFile("Ex.txt", new_array, "NIF\tCompra\tLoja", false);
 		
-		// FALTA ESCREVER O CÓDIGO UTILIZADO PARA FAZER O FICHEIRO DADOSCLIENTE
+		// --------------------------------------
+		// Criação de dados para o ficheiro Stock
+		
+		List<String> nomes = new ArrayList<>();
+		List<String> NIFs = new ArrayList<>();
+		
+		FileRdWr.readFile("Nomes.txt", nomes);
+		FileRdWr.readFile("NIFs.txt", NIFs);
+		
+		List<String> dadosClientes = new ArrayList<>();
+		
+		for(int i = 0; i < nomes.size();i++){	
+			int index = (int) (Math.random()*NIFs.size());
+			String dados = nomes.get(index) + "\t" + NIFs.get(index);
+			NIFs.remove(index);
+			dadosClientes.add(dados);
+		}
+		
+		FileRdWr.writeFile("DadosCliente.txt", dadosClientes, "Nome\tNIF", false);
 	}
 }

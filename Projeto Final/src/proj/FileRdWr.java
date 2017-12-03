@@ -7,11 +7,14 @@
 
 package proj;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Scanner;
 import static java.lang.System.*;
 
 public abstract class FileRdWr {
@@ -19,22 +22,25 @@ public abstract class FileRdWr {
 	@SuppressWarnings("unchecked")
 	public static <E> void readFile(String fileName, List<E> fileCont){
 		try{
-			Scanner fRead = new Scanner(new File(fileName));
-			fRead.nextLine();
-			while(fRead.hasNextLine()){
-				fileCont.add((E) fRead.nextLine());
+			BufferedReader fRead = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
+			fRead.readLine();
+			String line;
+			while((line = fRead.readLine()) != null){
+				fileCont.add((E) line);
 			}
 			
 			fRead.close();
 		}
 		catch(FileNotFoundException e){
 			out.println("ERROR: " + e);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
-	public static <E> void writeFile(String fileName, List<E> fileCont, String head){
+	public static <E> void writeFile(String fileName, List<E> fileCont, String head, boolean append){
 		try{
-			PrintWriter fWrite = new PrintWriter(new File(fileName)); 
+			PrintWriter fWrite = new PrintWriter(new FileWriter(fileName,append)); 
 			
 			fWrite.println(head);
 			
@@ -46,6 +52,8 @@ public abstract class FileRdWr {
 		}
 		catch(FileNotFoundException e){
 			out.println("ERROR: " + e);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
