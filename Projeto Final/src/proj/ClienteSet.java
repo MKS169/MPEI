@@ -20,7 +20,7 @@ public class ClienteSet {
 	private ComprasSet comprasSet;
 	
 	public ClienteSet() {
-		clienteSet = new ArrayList<>();// VER MELHOR FORMA DE FAZER ISTO!!
+		clienteSet = new ArrayList<>();
 		comprasFeitasPeloCliente = new HashMap<>();
 		comprasSet = new ComprasSet();
 		addClienteFromFile();
@@ -81,9 +81,34 @@ public class ClienteSet {
 		return false;
 	}
 		
-	public void listaDeSugestoes(int nif) {
-		//FALTA FAZER ISTO!!!
-		System.out.println("FALTA CRIAR AINDA!");
+		public void listaDeSugestoes(int nif, ComprasSet comprasSet, ClienteSet clienteSet) {
+		MinHash minHash = new MinHash(comprasSet, clienteSet);
+		Jaccard jaccard = new Jaccard(minHash);
+		DistanceFilter df = new DistanceFilter(clienteSet, jaccard.getDistance(), 0.5);
+		int nifClienteSemelhante=0;
+		
+		for(int i=0; i<df.similares().length; i++) {
+			if (Integer.parseInt(df.similares()[i].split(" ")[0])==nif) {
+				nifClienteSemelhante = Integer.parseInt(df.similares()[i].split(" ")[1]);
+				break;
+			}else if (Integer.parseInt(df.similares()[i].split(" ")[1])==nif) {
+				nifClienteSemelhante = Integer.parseInt(df.similares()[i].split(" ")[0]);
+				break;
+			}
+		}	
+		out.println("Cliente semelhante: " + nifClienteSemelhante);
+		out.println("Poderá querer comprar os seguintes produtos: ");
+		LinkedList<String> comprasDoSemelhante = comprasSet.produtosCompradosPeloCliente(nifClienteSemelhante);
+		LinkedList<String> comprasDoNif = comprasSet.produtosCompradosPeloCliente(nif);
+		int count;
+		for(String produtoSem: comprasDoSemelhante) {
+			count=0;
+			for(String produto: comprasDoNif) {
+				if(produto.equals(produtoSem)) {count++;}
+			}
+			if(count==0) System.out.println(produtoSem);
+		}
+		if(nifClienteSemelhante==0) out.println("Sem sugestões de produtos, de momento...");
 	}
 	
 	@Override

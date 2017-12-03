@@ -25,7 +25,7 @@ public class Supermercado {
 			out.print("Opção: ");
 			opcao = Integer.parseInt(sc.nextLine());
 			operaçao(opcao);
-		}while(opcao!=5);
+		}while(opcao!=0);
 	}
 	
 	public static void menu() {
@@ -76,8 +76,7 @@ public class Supermercado {
 					out.println("Registado com sucesso!");
 				}
 				else {
-					out.println("Poderá querer comprar os seguintes produtos: ");
-					conjClientes.listaDeSugestoes(nif); // ainda falta criar
+					conjClientes.listaDeSugestoes(nif);
 				}
 				
 				do {
@@ -104,8 +103,14 @@ public class Supermercado {
 						compra += produto + ": " + quantidade + ", ";
 						conjLojas.loja(nomeLoja).atualizarStock(produto, quantidade);
 						conjLojas.printToFile();
+					}else {
+						lojas = conjLojas.nomeLojas().split(", ");
+						for(int j=0; j<lojas.length; j++) {
+							if(conjLojas.produtoExiste(lojas[j], produto, quantidade)) 
+								out.println("Poderá encontrar o produto " + produto + " na loja " + lojas[j]);
+						}
+						out.println("O produto " + produto + " não será incluido na sua compra.");
 					}
-					// falta criar a parte de mostrar em que loja poderá existir um produto que nao exista nesta loja
 				}
 				conjCompras.addCompra(new Compras(nif, compra.substring(0, compra.length()-2)));
 				conjCompras.printToFile();
@@ -214,6 +219,7 @@ public class Supermercado {
 				
 				conjLojas.loja(nomeLoja).addProduto(produto, quantidade);
 				conjLojas.printToFile();
+				out.println("Produto adicionado com sucesso!");
 			}catch(Exception e) {
 				err.println("Impossível terminar processo de registo do produto!");
 			}

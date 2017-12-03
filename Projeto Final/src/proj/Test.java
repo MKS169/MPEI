@@ -41,7 +41,7 @@ public class Test {
 		}
 		
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.err.println("Fuck!");
+			System.err.println("Erro!");
 		}
 		System.out.println("-----------------------");
 		ClienteSet c = new ClienteSet();

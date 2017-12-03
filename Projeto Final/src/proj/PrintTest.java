@@ -3,7 +3,7 @@ package proj;
 import java.util.ArrayList;
 import java.util.List;
 
-// Classe utilizada para testa o metodo printToFile() das classes ComprasSet.java, ClienteSet.java e LojaSet.java
+// Classe utilizada para testar o metodo printToFile() das classes ComprasSet.java, ClienteSet.java e LojaSet.java
 // NÃO EXECUTAR ESTA CLASSE. A SUA EXECUÇÃO VAI ADICIONAR STRINGS QUE NÃO CORRESPONDEM AO FORMATO DAS NECESSÁRIAS NESTE FICHEIRO
 public class PrintTest {
 	public static void main(String[] args) {

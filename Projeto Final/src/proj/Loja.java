@@ -22,7 +22,7 @@ public class Loja implements LojaInterface{
 		countFilterProdutos = new CountFilter(aux.length, 5);
 		for (String elem: aux) {
 			addProduto(elem.split(": ")[0], Integer.parseInt(elem.split(": ")[1]));
-			//produtos.put(elem.split(": ")[0], Integer.parseInt(elem.split(": ")[1]));
+
 			// elem.split(": ")[0] --> Nome do produto (chave)
 			// elem.split(": ")[1] --> Quantidade do produto (valor)	
 		}
@@ -48,10 +48,14 @@ public class Loja implements LojaInterface{
 	
 	public void atualizarStock(String produto, int quantidadeComprada) {
 		produtos.put(produto, produtos.get(produto) - quantidadeComprada);
+		for(int i=0; i<quantidadeComprada; i++)
+			countFilterProdutos.bloomRemove(produto);
 	}
 	
 	public void reporStock(String produto, int quantidadeARepor) {
 		produtos.put(produto, produtos.get(produto)+quantidadeARepor);
+		for(int i=0; i<quantidadeARepor; i++)
+			countFilterProdutos.bloomInsertion(produto);
 	}
 	
 	@Override
@@ -59,7 +63,8 @@ public class Loja implements LojaInterface{
 		if(produto == null)
 			return false;
 		
-		countFilterProdutos.bloomInsertion(produto, quantidade);
+		for(int i=0; i<quantidade; i++)
+			countFilterProdutos.bloomInsertion(produto);
 		if(produtos.containsKey(produto)){
 			int aux = produtos.get(produto) + quantidade;
 			produtos.put(produto, aux);
@@ -69,19 +74,6 @@ public class Loja implements LojaInterface{
 			produtos.put(produto, quantidade);
 			return true;
 		}
-	}
-
-	@Override
-	public boolean removeProduto(String produto) {
-		if(produto == null)
-			return false;
-		if(produtos.containsKey(produto)){
-			int aux = produtos.get(produto) - 1; // retira 1 produto da quantidade
-			produtos.put(produto, aux);
-			return true;
-		}
-		else
-			return false;
 	}
 	
 	public String hashToString() {
@@ -99,10 +91,6 @@ public class Loja implements LojaInterface{
 
 	public boolean contains(String produto) {
 		if(produto==null) return false;
-		
-		for(String prod : produtos.keySet())
-			if(prod.equals(produto)) return true;
-		
-		return false;
+		return countFilterProdutos.isMember(produto);
 	}
 }

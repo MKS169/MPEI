@@ -15,7 +15,7 @@ public class DistanceFilter {
 		for(int i = 0; i < J.length; i++){				// com j = i + 1 toda a metade, com i > j da matriz J[][] é ignorada 
 			for(int j = 0; j < J[i].length; j++){			// visto que não contem qq valor
 				if(J[i][j] < limite){
-					similares.add(clientes.getCliente(i).getNome() + " " + clientes.getCliente(j).getNome() + " " + J[i][j]);
+					similares.add(clientes.getCliente(i).getNif() + " " + clientes.getCliente(j).getNif() + " " + J[i][j]);
 					pares++;
 				}
 			}

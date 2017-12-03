@@ -64,6 +64,21 @@ public class ComprasSet {
 					aux.add(elem);
 		return aux;
 	}
+		public LinkedList<String> produtosCompradosPeloCliente(int nif){
+		LinkedList<String> aux = new LinkedList<>();
+		
+		for (Compras compras: comprasSet)
+			if(compras.getNif() == nif) {
+				String[] produtos = compras.compra().split(", ");
+			
+				for(int i=0; i<produtos.length; i++) {
+					if(!aux.contains(produtos[i].split(": ")[0])){
+						aux.add(produtos[i].split(": ")[0]);
+					}
+				}
+			}
+		return aux;
+	}
 	
 	@Override
 	public String toString(){
