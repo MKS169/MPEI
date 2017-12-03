@@ -47,7 +47,8 @@ public class Loja implements LojaInterface{
 	}
 	
 	public void atualizarStock(String produto, int quantidadeComprada) {
-		produtos.put(produto, produtos.get(produto) - quantidadeComprada);
+		if(produtos.containsKey(produto))
+			produtos.put(produto, produtos.get(produto) - quantidadeComprada);
 		for(int i=0; i<quantidadeComprada; i++)
 			countFilterProdutos.bloomRemove(produto);
 	}
@@ -89,8 +90,9 @@ public class Loja implements LojaInterface{
 		return nomeLoja + "\t" + hashToString();
 	}
 
-	public boolean contains(String produto) {
+	public boolean contains(String produto, int quant) {
+		System.out.println("1");
 		if(produto==null) return false;
-		return countFilterProdutos.isMember(produto);
+		return countFilterProdutos.isMember(produto) && countFilterProdutos.count(produto)-quant>=0;
 	}
 }

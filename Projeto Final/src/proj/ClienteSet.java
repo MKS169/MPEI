@@ -89,12 +89,13 @@ public class ClienteSet {
 				break;
 			}
 		}
-		Cliente c = null;
+	/**	Cliente c = null;
 		for(int i = 0; i < clienteSet.size(); i++)
 			if(clienteSet.getCliente(i).getNif() == nifClienteSemelhante)
 				c = clienteSet.getCliente(i);
 		
 		System.out.println("Cliente semelhante: " + c.getNome());
+		*/
 		System.out.println("Poderá querer comprar os seguintes produtos: ");
 		LinkedList<String> comprasDoSemelhante = comprasSet.produtosCompradosPeloCliente(nifClienteSemelhante);
 		LinkedList<String> comprasDoNif = comprasSet.produtosCompradosPeloCliente(nif);

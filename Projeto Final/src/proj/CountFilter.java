@@ -20,6 +20,9 @@ public class CountFilter {
 		this.n = len;
 		this.k = hash;
 		this.bloom = new int[(int)(n/factor)];
+		for (int i=0; i<(int)(n/factor);i++) {
+			bloom[i]=0;
+		}
 	}
 	
 	void bloomInsertion(String s){						// s será um produto
@@ -57,13 +60,26 @@ public class CountFilter {
 	
 	boolean isMember(String s){
 		int bloomPos;
+		System.out.println("2");
 		for(int i = 1; i <= k; i++){					// i = 0 -> hash = 0;
 			s = s.concat(String.valueOf(i));			// acrescenta sequencialmente o valor em "i" no final da string 
 			bloomPos = hash(s)%bloom.length;			// começando em 0 e até a um valor máximo k-1
-			if(bloom[bloomPos] >= 1)
-				return true;
+
+			if(bloom[bloomPos] == 0)
+				return false;
 		}
-		return false;
+		return true;
+	}
+	int count(String s) {
+		int bloomPos;
+		int minValue = Integer.MAX_VALUE;
+		for(int i = 1; i <= k; i++){					// i = 0 -> hash = 0;
+			s = s.concat(String.valueOf(i));			// acrescenta sequencialmente o valor em "i" no final da string 
+			bloomPos = hash(s)%bloom.length;
+			if(bloom[bloomPos]<minValue)
+				minValue=bloom[bloomPos];
+		}
+		return minValue;
 	}
 	
 	double falsePositives(){
@@ -93,7 +109,6 @@ public class CountFilter {
 			if(hash < 0)
 				hash = -hash;
 		}
-		
 	    return hash;
 	}
 }

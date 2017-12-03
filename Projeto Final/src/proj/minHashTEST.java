@@ -21,6 +21,8 @@ public class minHashTEST {
 		
 		System.out.println("Pares: " + df.NumOfPares());				// numero muito elevado devido à quantidade
 																		// de produtos e clientes
+		for(int i=0; i<df.similares().length;i++)
+			System.out.println(df.similares()[i]);
 	}
 
 }

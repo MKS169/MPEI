@@ -88,7 +88,7 @@ public class Supermercado {
 				for(int i=0; i<numProdutos;i++) {
 					do {
 						out.print("Produto: ");
-						produto = sc.nextLine();
+						produto = sc.nextLine().toLowerCase();
 						produto = Character.toUpperCase(produto.charAt(0)) + produto.substring(1, produto.length());
 						if(produto.equals("")) out.println("Nome do produto inválido!");
 					}while(produto.equals(""));
@@ -98,25 +98,26 @@ public class Supermercado {
 						quantidade = Integer.parseInt(sc.nextLine());
 						if(quantidade<=0) out.println("Quantidade inválida!");
 					}while(quantidade<=0);
-					System.out.println(nomeLoja + " " + produto + " " + quantidade);
+					//System.out.println(nomeLoja + " " + produto + " " + quantidade);
 					if(conjLojas.produtoExiste(nomeLoja, produto, quantidade)) {
-						System.out.println("Chegou ao if");
-						compra += produto + ": " + quantidade + ", ";
+						System.out.println("Produto existe");
 						conjLojas.loja(nomeLoja).atualizarStock(produto, quantidade);
 						conjLojas.printToFile();
-						
+						compra+= produto+ ": " + quantidade + ", ";
 					}else {
-						System.out.println("Chegou ao else");
+						System.out.println("Produto não existe");
 						String[] lojas = conjLojas.nomeLojas().split(", ");
 						for(int j=0; j<lojas.length; j++) {
+							System.out.println("Entrou aqui!");
 							if(conjLojas.produtoExiste(lojas[j], produto, quantidade)) 
 								out.println("Poderá encontrar o produto " + produto + " na loja " + lojas[j]);
 						}
 						out.println("O produto " + produto + " não será incluido na sua compra.");
 					}
 				}
-				System.out.println("Chegou ao add");
-				conjCompras.addCompra(new Compras(nif, compra.substring(0, compra.length()-2)));
+				System.out.println("Registando...");
+				if(!compra.equals(""))
+					conjCompras.addCompra(new Compras(nif, compra.substring(0, compra.length()-2)));
 				conjCompras.printToFile();
 				out.println("Compra registada com sucesso!");
 			}
@@ -126,7 +127,6 @@ public class Supermercado {
 			}
 		}catch(Exception e) {
 			err.println("Erro no processo de compra!");
-			err.print(e);
 		}
 	}
 
@@ -210,7 +210,7 @@ public class Supermercado {
 				out.print("Produto: ");
 				produto = sc.nextLine();
 				produto = produto.replace(produto.charAt(0), Character.toUpperCase(produto.charAt(0)));
-				if(conjLojas.loja(nomeLoja).contains(produto) || produto.equals("")) {
+				if(conjLojas.loja(nomeLoja).contains(produto,0) || produto.equals("")) {
 					err.println("Nome do produto já existe ou campo por preencher!");
 					throw new Exception();
 				}

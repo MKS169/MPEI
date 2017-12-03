@@ -10,11 +10,14 @@ package proj;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Scanner;
+
 import static java.lang.System.*;
 
 public abstract class FileRdWr {
@@ -22,11 +25,12 @@ public abstract class FileRdWr {
 	@SuppressWarnings("unchecked")
 	public static <E> void readFile(String fileName, List<E> fileCont){
 		try{
-			BufferedReader fRead = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
-			fRead.readLine();
+			//BufferedReader fRead = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+			Scanner fRead = new Scanner(new FileReader(fileName));
+			fRead.nextLine();
 			String line;
-			while((line = fRead.readLine()) != null){
-				fileCont.add((E) line);
+			while(fRead.hasNextLine()){
+				fileCont.add((E) fRead.nextLine());
 			}
 			
 			fRead.close();

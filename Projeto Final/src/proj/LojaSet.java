@@ -87,14 +87,11 @@ public class LojaSet {
 	}
 
 	public boolean produtoExiste(String nomeLoja, String produto, int quantidade) {
-		for(Loja loja: lojaSet) {
-			System.out.println(loja.getNomeLoja() + "\n" + loja.contains(produto) + "\n" + loja.getQuantidade(produto));
-			
-			if(loja.getNomeLoja().equals(nomeLoja) && loja.contains(produto) && loja.getQuantidade(produto)-quantidade>=0){ 
-				return true;
+			if(!loja(nomeLoja).contains(produto, quantidade)){ 
+				System.out.println("Entrou");
+				return false;
 			}
-		}
-		return false;
+		return true;
 		
 	}
 }
