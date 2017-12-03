@@ -50,16 +50,8 @@ public class LojaSet {
 	}
 
 	public void printToFile() {
-		List<Loja> fich = new ArrayList<>();
-		List<Loja> nEqual = new ArrayList<>();
-		String head = "Novo Conteudo";
-		FileRdWr.readFile("Stock.txt", fich);
-		
-		nEqual.addAll(fich);
-		nEqual.addAll(lojaSet);
-		nEqual.removeAll(fich);
-		
-		FileRdWr.writeFile("Stock.txt", nEqual, head, true);
+		String head = "Loja\tProdutos";
+		FileRdWr.writeFile("Stock.txt", lojaSet, head, false);
 	}
 	
 	// função redundante??

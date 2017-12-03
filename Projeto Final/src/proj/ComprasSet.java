@@ -36,16 +36,8 @@ public class ComprasSet {
 	}
 	
 	public void printToFile() {
-		List<Compras> fich = new ArrayList<>();
-		List<Compras> nEqual = new ArrayList<>();
-		String head = "Novo Conteudo";
-		FileRdWr.readFile("Compras.txt", fich);
-		
-		nEqual.addAll(fich);
-		nEqual.addAll(comprasSet);
-		nEqual.removeAll(fich);
-		
-		FileRdWr.writeFile("Compras.txt", nEqual, head, true);
+		String head = "NIF\tCompras\tLoja";
+		FileRdWr.writeFile("Compras.txt", comprasSet, head, false);
 	}
 		
 	public Compras getCompras(int index){

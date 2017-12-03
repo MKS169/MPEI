@@ -76,7 +76,7 @@ public class Supermercado {
 					out.println("Registado com sucesso!");
 				}
 				else {
-					conjClientes.listaDeSugestoes(nif);
+					conjClientes.listaDeSugestoes(nif,conjCompras,conjClientes);
 				}
 				
 				do {
@@ -104,7 +104,7 @@ public class Supermercado {
 						conjLojas.loja(nomeLoja).atualizarStock(produto, quantidade);
 						conjLojas.printToFile();
 					}else {
-						lojas = conjLojas.nomeLojas().split(", ");
+						String[] lojas = conjLojas.nomeLojas().split(", ");
 						for(int j=0; j<lojas.length; j++) {
 							if(conjLojas.produtoExiste(lojas[j], produto, quantidade)) 
 								out.println("Poderá encontrar o produto " + produto + " na loja " + lojas[j]);
@@ -142,6 +142,7 @@ public class Supermercado {
 				}
 			}
 		}
+		System.out.println("Stock Reposto!");
 	}
 	
 	private static void registarLoja() {
@@ -203,7 +204,7 @@ public class Supermercado {
 				
 				out.print("Produto: ");
 				produto = sc.nextLine();
-				produto = produto.replace(produto.charAt(0), Character.toUpperCase(produto.charAt(0)));
+				//produto = produto.replace(produto.charAt(0), Character.toUpperCase(produto.charAt(0)));
 				if(conjLojas.loja(nomeLoja).contains(produto) || produto.equals("")) {
 					err.println("Nome do produto já existe ou campo por preencher!");
 					throw new Exception();

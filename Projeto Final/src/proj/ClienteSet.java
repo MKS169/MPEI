@@ -60,16 +60,9 @@ public class ClienteSet {
 	}
 
 	public void printToFile() {
-		List<Cliente> fich = new ArrayList<>();
-		List<Cliente> nEqual = new ArrayList<>();
-		String head = "Novo Conteudo";
-		FileRdWr.readFile("DadosCliente.txt", fich);
+		String head = "Nome\tNIF";
 		
-		nEqual.addAll(fich);
-		nEqual.addAll(clienteSet);
-		nEqual.removeAll(fich);
-		
-		FileRdWr.writeFile("DadosCliente.txt", nEqual, head, true);
+		FileRdWr.writeFile("DadosCliente.txt", clienteSet, head, false);
 	}
 		
 	public boolean clienteExiste(int nif) {
@@ -81,7 +74,7 @@ public class ClienteSet {
 		return false;
 	}
 		
-		public void listaDeSugestoes(int nif, ComprasSet comprasSet, ClienteSet clienteSet) {
+	public void listaDeSugestoes(int nif, ComprasSet comprasSet, ClienteSet clienteSet) {
 		MinHash minHash = new MinHash(comprasSet, clienteSet);
 		Jaccard jaccard = new Jaccard(minHash);
 		DistanceFilter df = new DistanceFilter(clienteSet, jaccard.getDistance(), 0.5);
@@ -96,8 +89,8 @@ public class ClienteSet {
 				break;
 			}
 		}	
-		out.println("Cliente semelhante: " + nifClienteSemelhante);
-		out.println("Poderá querer comprar os seguintes produtos: ");
+		System.out.println("Cliente semelhante: " + nifClienteSemelhante);
+		System.out.println("Poderá querer comprar os seguintes produtos: ");
 		LinkedList<String> comprasDoSemelhante = comprasSet.produtosCompradosPeloCliente(nifClienteSemelhante);
 		LinkedList<String> comprasDoNif = comprasSet.produtosCompradosPeloCliente(nif);
 		int count;
@@ -108,7 +101,7 @@ public class ClienteSet {
 			}
 			if(count==0) System.out.println(produtoSem);
 		}
-		if(nifClienteSemelhante==0) out.println("Sem sugestões de produtos, de momento...");
+		if(nifClienteSemelhante==0) System.out.println("Sem sugestões de produtos, de momento...");
 	}
 	
 	@Override
