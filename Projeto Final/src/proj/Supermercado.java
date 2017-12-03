@@ -89,7 +89,7 @@ public class Supermercado {
 					do {
 						out.print("Produto: ");
 						produto = sc.nextLine();
-						produto = produto.replace(produto.charAt(0), Character.toUpperCase(produto.charAt(0)));
+						produto = Character.toUpperCase(produto.charAt(0)) + produto.substring(1, produto.length());
 						if(produto.equals("")) out.println("Nome do produto inválido!");
 					}while(produto.equals(""));
 					
@@ -98,12 +98,15 @@ public class Supermercado {
 						quantidade = Integer.parseInt(sc.nextLine());
 						if(quantidade<=0) out.println("Quantidade inválida!");
 					}while(quantidade<=0);
-					
+					System.out.println(nomeLoja + " " + produto + " " + quantidade);
 					if(conjLojas.produtoExiste(nomeLoja, produto, quantidade)) {
+						System.out.println("Chegou ao if");
 						compra += produto + ": " + quantidade + ", ";
 						conjLojas.loja(nomeLoja).atualizarStock(produto, quantidade);
 						conjLojas.printToFile();
+						
 					}else {
+						System.out.println("Chegou ao else");
 						String[] lojas = conjLojas.nomeLojas().split(", ");
 						for(int j=0; j<lojas.length; j++) {
 							if(conjLojas.produtoExiste(lojas[j], produto, quantidade)) 
@@ -112,6 +115,7 @@ public class Supermercado {
 						out.println("O produto " + produto + " não será incluido na sua compra.");
 					}
 				}
+				System.out.println("Chegou ao add");
 				conjCompras.addCompra(new Compras(nif, compra.substring(0, compra.length()-2)));
 				conjCompras.printToFile();
 				out.println("Compra registada com sucesso!");
@@ -122,6 +126,7 @@ public class Supermercado {
 			}
 		}catch(Exception e) {
 			err.println("Erro no processo de compra!");
+			err.print(e);
 		}
 	}
 
@@ -204,7 +209,7 @@ public class Supermercado {
 				
 				out.print("Produto: ");
 				produto = sc.nextLine();
-				//produto = produto.replace(produto.charAt(0), Character.toUpperCase(produto.charAt(0)));
+				produto = produto.replace(produto.charAt(0), Character.toUpperCase(produto.charAt(0)));
 				if(conjLojas.loja(nomeLoja).contains(produto) || produto.equals("")) {
 					err.println("Nome do produto já existe ou campo por preencher!");
 					throw new Exception();
